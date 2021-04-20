@@ -3,17 +3,17 @@ import { IActivity } from '../models/activity';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
-const responeBody = (respone: AxiosResponse) => respone.data;
+const responseBody = (response: AxiosResponse) => response.data;
 
-const sleep = (ms: number) => (response: AxiosResponse) =>
+const sleep = (ms: number) => (response: AxiosResponse) => 
     new Promise<AxiosResponse>(resolve => setTimeout(() => resolve(response), ms));
 
 const requests = {
-    get: (url: string) => axios.get(url).then(sleep(1000)).then(responeBody),
-    post: (url: string, body: {}) => axios.post(url, body).then(sleep(1000)).then(responeBody),
-    put: (url: string, body: {}) => axios.put(url, body).then(sleep(1000)).then(responeBody),
-    del: (url: string) => axios.delete(url).then(sleep(1000)).then(responeBody)
-}
+    get: (url: string) => axios.get(url).then(sleep(1000)).then(responseBody),
+    post: (url: string, body: {}) => axios.post(url, body).then(sleep(1000)).then(responseBody),
+    put: (url: string, body: {}) => axios.put(url, body).then(sleep(1000)).then(responseBody),
+    del: (url: string) => axios.delete(url).then(sleep(1000)).then(responseBody) 
+};
 
 const Activities = {
     list: (): Promise<IActivity[]> => requests.get('/activities'),
@@ -23,8 +23,6 @@ const Activities = {
     delete: (id: string) => requests.del(`/activities/${id}`)
 }
 
-const sActivities = {
-    Activities
-}
+const test = { Activities,requests,sleep,responseBody };
 
-export default sActivities;
+export default test;
