@@ -23,6 +23,6 @@ const Activities = {
     delete: (id: string) => requests.del(`/activities/${id}`)
 }
 
-const test = { Activities,requests,sleep,responseBody };
+const test = { Activities };
 
 export default test;
